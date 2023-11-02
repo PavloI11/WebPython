@@ -39,7 +39,6 @@ def index():
 @app.route('/clear_database')
 def clear_database():
     with app.app_context():
-        # Виконати міграцію для видалення та створення таблиці
         db.drop_all()
         db.create_all()
     return redirect(url_for('index'))
