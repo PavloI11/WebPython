@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Processing</title>
+</head>
+<body>
+    <h1>Enter User Information:</h1>
+    <form action="/cgi-bin/process_form.py" method="post">
+        <p>First Name: <input type="text" name="first_name"></p>
+        <p>Last Name: <input type="text" name="last_name"></p>
+        <p>Email: <input type="text" name="email"></p>
+        <p>Gender:
+            <input type="radio" name="gender" value="male"> Male
+            <input type="radio" name="gender" value="female"> Female
+        </p>
+        <p>Country:
+            <select name="country">
+                <option value="usa">United States</option>
+                <option value="canada">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="other">Other</option>
+            </select>
+        </p>
+        <p>
+            <input type="checkbox" name="subscribe" value="yes"> Subscribe to Newsletter
+        </p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+</body>
+</html>
