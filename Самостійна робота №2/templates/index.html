@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game App</title>
+</head>
+<body>
+    <h1>Welcome to the Game App</h1>
+
+    <form id="playerForm">
+        <label for="playerName">Player Name:</label>
+        <input type="text" id="playerName" name="playerName" required>
+        <label for="playerScore">Player Score:</label>
+        <input type="number" id="playerScore" name="playerScore" required>
+        <label for="playerLevel">Player Level:</label>
+        <input type="number" id="playerLevel" name="playerLevel" required>
+        <button type="button" onclick="addPlayer()">Add Player</button>
+    </form>
+
+    <div id="playerList">
+        <!-- Player data will be displayed here -->
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
