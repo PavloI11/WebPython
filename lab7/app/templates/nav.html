@@ -1,0 +1,18 @@
+<h1>Мій сайт</h1>
+<nav>
+    <ul>
+        {%for name, url in menu.items() %}
+            <li><a href={{url}}> {{ name }} </a></li>
+        {% endfor %}
+
+        {% set username = session['username'] %}
+        {% if username %}
+            <li><a href="{{ url_for('todo') }}">Todo</a></li>
+            <li><a href="{{ url_for('info') }}">Профіль</a></li>
+            <li><a href="{{ url_for('users') }}">Користувачі</a></li>
+        {% else %} <!--userId != None-->
+            <li><a href="{{ url_for('login') }}">Увійти</a></li>
+            <li><a href="{{ url_for('register') }}">Зареєструватись</a></li>
+        {% endif %}  
+    </ul>
+</nav>

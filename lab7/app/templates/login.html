@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Увійти{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Увійти</h2>
+  <div class="row g-0">
+    <div class="col">
+      <div class="p-3">
+        <form id="contactForm" action={{url_for("login")}} method="POST" novalidate>
+          {% from "_render_field.html" import render_field %}
+          {{form.csrf_token}}
+          <div class="mb-3">
+            {{ render_field(form.email)}} {{form.email.label}} 
+          </div>
+          <div class="mb-3">
+            {{ render_field(form.password)}}  {{form.password.label}} 
+          </div>
+          <div class="mb-3">
+            {{ render_field(form.remember) }} {{form.remember.label}} 
+          </div>
+          {{form.submit(class_='btn btn-primary btn-xl')}}
+        </form>
+        {% if error_message %}
+          <div class="alert alert-danger mt-3" role="alert">
+            {{ error_message }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
