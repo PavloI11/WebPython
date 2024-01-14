@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Аккаунт{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h2 class="mb-3">Аккаунт</h2>
+    <h4 class="mb-3">Ви ввійшли як: {{current_user.username}}</h4>
+    <form method="post" action={{ url_for('info') }}>
+      <button type="submit" class="btn btn-primary mb-5">Перейти до info</button>
+   </form>
+    <form method="post" action="{{ url_for('logout') }}">
+      <button type="submit" class="btn btn-primary mb-5">Вихід</button>
+    </form>
+</div>
+{% endblock %}
