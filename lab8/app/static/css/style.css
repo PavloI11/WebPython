@@ -1,0 +1,14 @@
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-menu li {
+  margin-right: 10px; /* Додайте відступ між посиланнями, якщо потрібно */
+}
+
+.overlay {
+
+    z-index: 999;
+}
