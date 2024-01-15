@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Пости{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h4 class="mt-5">Список постів</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Світлина</th>
+        <th>Значення</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in all_posts %}
+      <tr>
+          <th scope="row"><img src="{{url_for('post_bp.static', filename='images/' + post.image_file)}}" width="150px"></th>
+          <td scope="row"><a href="{{ url_for('post_bp.post_detail', id=post.id) }}">{{ post.title }}</a></td>
+      </tr>
+      {% else %}
+          <tr>
+              <td colspan="4"><strong>Пости відсутні. <a href={{url_for("post_bp.create")}}>Створіть свій перший пост</a></strong></td>
+          </tr>
+      {% endfor %}
+      <br>
+      <h4 class="text-center"><a href={{url_for("post_bp.post_table_by_date")}}>Вивести пости за датою</a></h4>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

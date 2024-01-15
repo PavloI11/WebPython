@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Info{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h2 class="mb-3">Інфо</h2>
+  {% if 'username' %}
+
+    <h4 class="mb-3">Додати cookie</h4>
+    <form method="post" action="{{ url_for('cookies_bp.add_cookie') }}">
+      <div class="form-group">
+        <label for="cookie_key">Ключ</label>
+        <input type="text" class="form-control" name="cookie_key" id="cookie_key" required>
+      </div>
+      <div class="form-group">
+        <label for="cookie_value">Значення</label>
+        <input type="text" class="form-control" name="cookie_value" id="cookie_value" required>
+      </div>
+      <div class="form-group">
+        <label for="cookie_expiration">Термін дії (секунди)</label>
+        <input type="number" class="form-control" name="cookie_expiration" id="cookie_expiration" required>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Add Cookie</button>
+    </form>
+
+    <h4 class="mt-5">Збереженні сookies</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Ключ</th>
+          <th>Значення</th>
+          <th>Термін дії</th>
+          <th>Створено</th>
+          <th>Дія</th>
+            <th>
+                <form method="post" action="{{ url_for('cookies_bp.delete_all_cookies') }}">
+            <button type="submit" class="btn btn-warning">Видалити всі cookies</button>
+                </form>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, cookie_data in cookies_data %}
+          <tr>
+            <td>{{ key  }}</td>
+             <td>{{ cookie_data['value'] }}</td>
+            <td>{{ cookie_data['expiration'] }}</td>
+            <td>{{ cookie_data['created_at'] }}</td>
+            <td>
+              <form method="post" action="{{ url_for('cookies_bp.delete_cookie', key=key) }}">
+                <button type="submit" class="btn btn-danger">Видалити</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+{% endblock %}
