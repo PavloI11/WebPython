@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Користувачі{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h2 class="mb-3">Todo</h2>
+  {% if 'username' %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in all_users %}
+          <tr>
+            <td>{{ user.id  }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td><img src="{{ url_for('static', filename='images/default.jpg') }}" width="100" height="100" ></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+{% endblock %}

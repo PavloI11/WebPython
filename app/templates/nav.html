@@ -1,0 +1,18 @@
+<h1>Мій сайт</h1>
+<nav>
+    <ul>
+        {%for name, url in menu.items() %}
+            <li><a href={{url}}> {{ name }} </a></li>
+        {% endfor %}
+
+        {% set username = session['username'] %}
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('todo_bp.todo') }}">Todo</a></li>
+            <li><a href="{{ url_for('account_bp.account') }}">Профіль</a></li>
+            <li><a href="{{ url_for('auth_bp.users') }}">Користувачі</a></li>
+        {% else %} <!--userId != None-->
+            <li><a href="{{ url_for('auth_bp.login') }}">Увійти</a></li>
+            <li><a href="{{ url_for('auth_bp.register') }}">Зареєструватись</a></li>
+        {% endif %}  
+    </ul>
+</nav>
