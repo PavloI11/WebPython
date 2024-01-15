@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Аккаунт{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h2 class="mb-3">Аккаунт</h2>
+    <img class="mb-3 account-img" width="96" height="96" src={{url_for('static', filename='profile_pics/' + current_user.image_file)}}>
+    <h4 class="mb-3">You are login as: {{current_user.username}}</h4>
+    {% if current_user.about_me %}
+      <h4>About myself:</h4>
+      <p>{{ current_user.about_me }}</p>
+    {% endif %}
+    {% if current_user.last_seen %}
+        <p>Last Seen: {{ current_user.last_seen }}</p>
+    {% endif %}
+    <form method="post" action={{ url_for('info') }}>
+      <button type="submit" class="btn btn-primary mb-5">Перейти до info</button>
+   </form>
+    <form method="post" action="{{ url_for('logout') }}">
+      <button type="submit" class="btn btn-primary mb-5">Вихід</button>
+    </form>
+</div>
+<div class="container mt-5 mb-3">
+  <form id="contactForm" action={{url_for("account")}} method="POST" novalidate enctype="multipart/form-data">
+    {% from "_render_field.html" import render_field %}
+    {{form.csrf_token}}
+    <div class="mb-3">
+        {{ render_field(form.username)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.email)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.about_me)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.picture)}}
+    </div>
+    {{form.submit(class_='btn btn-primary btn-xl')}}
+  </form>
+  <h4>Змінити пароль</h4>
+  <form method="POST" action="{{ url_for('change_password') }}">
+    {% from "_render_field.html" import render_field %}
+    {{ form.csrf_token }}
+    {{ render_field(cp_form.email) }}
+    {{ render_field(cp_form.password) }}
+    {{ render_field(cp_form.confirm_password) }}
+    {{form.submit(class_='btn btn-primary mb-5 mt-1')}}
+  </form> 
+</div>
+{% endblock %}
