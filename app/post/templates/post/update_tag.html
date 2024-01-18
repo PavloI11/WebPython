@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Теги{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+    <h4>Оновити тег</h2>
+    <form id="updateTag" method="POST">
+        {% from "_render_field.html" import render_field %}
+        {{ form.hidden_tag() }}
+        <div class="form-floating mb-3">
+            {{ render_field(form.name) }}
+        </div>
+        {{form.submit(class_='btn btn-primary btn-xl')}}
+    </form>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Теги{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+   <form id="createTag" action={{ url_for('post_bp.create_tag') }} method="POST">
+    {% from "_render_field.html" import render_field %}
+    {{form.csrf_token}}
+    <div class="mb-3">
+        {{ render_field(form.name)}}
+    </div>
+    {{form.submit(class_='btn btn-primary btn-xl')}}
+  </form>
+</div>
+
+<div class="container mt-5 mb-3">
+    <h4 class="mt-5">Список тег</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Тег</th>
+          <th>Дія</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tag in list %}
+        <tr>
+          <th scope="row">{{ tag.id }}</th>
+          <td class = "tagTable"><a href="{{ url_for('post_bp.update_tag', tag_id=tag.id) }}">{{ tag.name }}</a></td>
+          <td>
+              <a class="btn btn-danger ms-1" href={{ url_for('post_bp.delete_tag', tag_id=tag.id) }}>Видалити</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

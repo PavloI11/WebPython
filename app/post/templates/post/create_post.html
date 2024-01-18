@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Пости{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+    <form id="createPost" method="POST" enctype="multipart/form-data">
+    {% from "_render_field.html" import render_field %}
+    {{form.csrf_token}}
+    <div class="mb-3">
+        {{ render_field(form.title)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.text)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.picture)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.type)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.category)}}
+    </div>
+    <div class="mb-3">
+        {{ render_field(form.tag)}}
+    </div>   
+    {{form.submit(class_='btn btn-primary btn-xl')}}
+  </form>
+</div>
+{% endblock %}
