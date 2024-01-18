@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Пости{% endblock %}
+{% block content %}
+{% block additional_js %}
+    <script src="{{ url_for('static', filename='js/banner.js') }}"></script>
+{% endblock %}
+
+<div class="container mt-5 mb-3">
+  <h4 class="mt-5">Список постів</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Світлина</th>
+        <th>Значення</th>
+        <th>Тип</th>
+        <th>Час створення</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in all_posts %}
+      <tr>
+          <th scope="row"><img src="{{url_for('post_bp.static', filename='images/' + post.image_file)}}" width="150px"></th>
+          <td scope="row"><a href="{{ url_for('post_bp.post_detail', id=post.id) }}">{{ post.title }}</a></td>
+          <td scope="row">{{ post.type.name }}</td>
+          <td scope="row">{{ post.created }}</td>
+      </tr>
+      {% else %}
+          <tr>
+              <td colspan="4"><strong>Пости відсутні. <a href={{url_for("post_bp.create")}}>Створіть свій перший пост</a></strong></td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <ul class="pagination justify-content-center">
+    {% if all_posts.has_prev %}
+        <li class="page-item active"><a class="page-link" href={{url_for("post_bp.post_table_by_date", page = all_posts.prev_num) }}>Назад</a></li>
+    {% else %}
+        <li class="page-item secondary"><a class="page-link" href="#">Назад</a></li>
+    {% endif %}
+
+    {% for number in all_posts.iter_pages(left_edge = 3, right_edge = 3) %}
+        {% if all_posts.page != number %}
+            <li class="page-item secondary"><a class="page-link" href={{url_for("post_bp.post_table_by_date", page = number) }}>{{ number }}</a></li>
+        {% else %}
+            <li class="page-item active"><a class="page-link" href="#">{{ number }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if all_posts.has_next %}
+        <li class="page-item active"><a class="page-link" href={{url_for("post_bp.post_table_by_date", page = all_posts.next_num) }}>Далі</a></li>
+    {% else %}
+        <li class="page-item secondary"><a class="page-link" href="#">Далі</a></li>
+    {% endif %}
+    </ul>
+    <br>
+    <h4 class="text-center"><a href={{url_for("post_bp.post_table")}}>Повернутися до звичного вигляду</a></h4>
+</div>
+{% endblock %}
